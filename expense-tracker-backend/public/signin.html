@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .error { color: red; font-size: 0.9rem; margin-top: 4px; }
+  </style>
+</head>
+<body>
+<header class="main-header">
+  <img src="assets/logo.png" class="logo" />
+</header>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Welcome Back</h2>
+      <p>Please enter your details to login</p>
+
+      <form id="signinForm" novalidate>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="eg: tanvi@gmail.com" />
+        <div class="error" id="emailError"></div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min 8 Characters" />
+        <div class="error" id="passwordError"></div>
+
+        <div class="error" id="serverError"></div>
+
+        <button type="submit">LOGIN</button>
+      </form>
+
+      <p class="signup">Don’t have an account ? <a href="/signup">Sign Up</a></p>
+    </div>
+
+    <div class="image-box">
+      <img src="assets/signin.jpg" alt="Expense illustration" />
+    </div>
+  </div>
+
+  
+
+  <script>
+
+  const params = new URLSearchParams(window.location.search);
+  const error = params.get('error');
+  if (error) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error';
+    errorDiv.style.color = 'red';
+    errorDiv.textContent = decodeURIComponent(error);
+    document.querySelector('.form-box').prepend(errorDiv);
+  }
+
+
+    const form = document.getElementById('signinForm');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Reset errors
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('serverError').textContent = '';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      let valid = true;
+
+      // Client-side validation
+      if (!email) {
+        document.getElementById('emailError').textContent = 'Email is required.';
+        valid = false;
+      }
+
+      if (!password || password.length < 8) {
+        document.getElementById('passwordError').textContent = 'Password must be at least 8 characters.';
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      try {
+        const res = await fetch('/api/signin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+  window.location.href = '/dashboard';
+} else {
+  document.getElementById('serverError').textContent = result.error || 'Invalid credentials.';
+}
+
+      } catch (err) {
+        document.getElementById('serverError').textContent = 'Server error. Please try again.';
+        console.error('Signin error:', err);
+
+      }
+    });
+  </script>
+</body>
+</html>

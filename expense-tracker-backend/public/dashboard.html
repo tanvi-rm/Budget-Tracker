@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body onload="initializeDashboard()">
+
+  <header class="main-header">
+  <img src="assets/logo.png" class="logo" />
+</header>
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img" />
+      <h2 class="user-name">Loading...</h2>
+      <button onclick="loadPage('dashboard')">Dashboard</button>
+      <button onclick="loadPage('income')">Income</button>
+      <button onclick="loadPage('expense')">Expense</button>
+      <button onclick="showLogoutModal()">Logout</button>
+
+    </aside>
+
+    <div class="main">
+      <div id="main-content">
+        <!-- Dynamic content will load here -->
+      </div>
+    </div>
+
+    
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/dashboard.js"></script>
+
+
+<div id="logout-modal" class="modal hidden">
+  <div class="modal-content">
+    <p>Do You want to logout from <strong>FinTrack</strong>?</p>
+    <div class="modal-actions">
+      <button id="confirm-logout" class="btn-yes">YES</button>
+      <button id="cancel-logout" class="btn-no">NO</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker - Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <header class="main-header">
+  <img src="assets/logo.png" class="logo" />
+</header>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Create an Account</h2>
+      <p>Join us today by entering your details below.</p>
+
+      <form id="signupForm" enctype="multipart/form-data" novalidate>
+        <div class="avatar-upload">
+          <input type="file" id="avatar" name="avatar" accept="image/*" hidden />
+          <div class="avatar-placeholder" onclick="document.getElementById('avatar').click()">
+            <img id="avatarPreview" src="" alt="Avatar" style="display: none;" />
+            <span id="avatarIcon">+</span>
+          </div>
+          <div class="error" id="avatarError"></div>
+        </div>
+
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullName" placeholder="Tanvi Rajaram Mane" />
+        <div class="error" id="nameError"></div>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="tanvi@gmail.com" />
+        <div class="error" id="emailError"></div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min 8 Characters" />
+        <div class="error" id="passwordError"></div>
+
+        <button type="submit">REGISTER</button>
+      </form>
+
+      <p class="signin-link">Already have an account? <a href="/signin">Sign In</a></p>
+    </div>
+
+    <div class="image-box">
+      <img src="assets/signin.jpg" alt="Signup illustration" />
+    </div>
+  </div>
+
+  
+
+  <script>
+    // Avatar preview logic
+    const avatarInput = document.getElementById('avatar');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const avatarIcon = document.getElementById('avatarIcon');
+
+    avatarInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          avatarPreview.src = e.target.result;
+          avatarPreview.style.display = 'block';
+          avatarIcon.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Form submission logic
+    const form = document.getElementById('signupForm');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Reset errors
+      document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+      const fullName = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const avatar = document.getElementById('avatar').files[0];
+
+      let valid = true;
+
+      if (!fullName) {
+        document.getElementById('nameError').textContent = 'Full name is required.';
+        valid = false;
+      }
+
+      const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if (!email || !emailPattern.test(email)) {
+        document.getElementById('emailError').textContent = 'Enter a valid email.';
+        valid = false;
+      }
+
+      if (!password || password.length < 8) {
+        document.getElementById('passwordError').textContent = 'Password must be at least 8 characters.';
+        valid = false;
+      }
+
+      if (!avatar) {
+        document.getElementById('avatarError').textContent = 'Please upload a profile picture.';
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const formData = new FormData();
+      formData.append('fullName', fullName);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('avatar', avatar);
+
+      try {
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await res.json();
+        if (res.ok) {
+          window.location.href = '/signin';
+        } else {
+          alert(result.error || 'Signup failed.');
+        }
+      } catch (err) {
+        console.error('Fetch error:', err);
+        alert('Signup request failed.');
+      }
+    });
+  </script>
+</body>
+</html>
