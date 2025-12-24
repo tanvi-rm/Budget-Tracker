@@ -49,8 +49,9 @@
 
 ## 📸 Project Screenshots
 
-👉 **View all screenshots here:**  
-📂 [Screenshots Gallery](screenshots/README.md)
+👉 Click below to view all project screenshots:
+
+📂 [View Project Screenshots](./screenshots/README.md)
 
 ---
 
