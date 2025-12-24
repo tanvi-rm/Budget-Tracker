@@ -42,8 +42,3 @@
 [![Signup Page](signup.png)](signup.png)
 
 ---
-
-## 🔑 Sign In
-*Existing user login page.*
-
-[![Signin Page](signin.png)](signin.png)
