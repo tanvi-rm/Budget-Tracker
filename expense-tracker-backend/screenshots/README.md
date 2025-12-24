@@ -1,44 +1,38 @@
+# 📸 FinTrack – Project Screenshots
 
-📌 **Purpose:** Only screenshots (clickable)
+> 🔎 Click on the image **or** the link below it to view full size.
 
 ---
 
-### 📸 `screenshots/README.md`
-
-```md
-# 📸 FinTrack – Project Screenshots
-
 ## 📊 Dashboard
-*Overview of balance, income, expenses, and financial charts.*
+[🔗 Open Dashboard Screenshot](dashboard.png)
 
 [![Dashboard](dashboard.png)](dashboard.png)
 
 ---
 
-## ➕ Add Income
-*Page to record income entries.*
+## ➕ Income Page
+[🔗 Open Income Screenshot](income.png)
 
-[![Income Page](income.png)](income.png)
-
----
-
-## ➖ Add Expense
-*Page to record expense transactions.*
-
-[![Expense Page](expense.png)](expense.png)
+[![Income](income.png)](income.png)
 
 ---
 
-## 🧾 Recent Transactions
-*List of recent income and expense records.*
+## ➖ Expense Page
+[🔗 Open Expense Screenshot](expense.png)
 
-[![Transactions](transactions.png)](transactions.png)
+[![Expense](expense.png)](expense.png)
 
 ---
 
 ## 🔐 Sign Up
-*New user registration page.*
+[🔗 Open Signup Screenshot](signup.png)
 
-[![Signup Page](signup.png)](signup.png)
+[![Signup](signup.png)](signup.png)
 
 ---
+
+## 🚪 Logout
+[🔗 Open Logout Screenshot](logout.png)
+
+[![Logout](logout.png)](logout.png)
